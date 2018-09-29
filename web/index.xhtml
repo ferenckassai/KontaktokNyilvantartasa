@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Kontakt személyek listája</title>
+    </h:head>
+    <h:body>
+        <h:form>
+
+            Név:
+            <h:inputText value="#{kontaktok.keresettNev}" />
+
+            <h:commandButton value="Keres" action="#{kontaktok.keres()}"/>
+
+            <h:commandButton value="Contact hozzáadása" action="ujhoz"/>
+            <br/>
+
+            <h:dataTable value="#{kontaktok.kiirKontaktok}" var="kivKont">
+
+                <h:column>
+
+                    <h:link value="#{kivKont.name}">
+                       <a href=""/>
+                    </h:link> 
+
+
+                </h:column>
+
+
+                <h:column>
+
+                    <h:commandButton value="Töröl" action="#{kontaktok.konTorol(kivKont)}"/>
+
+                </h:column>
+
+                
+                
+                 <h:column>
+
+                     <h:commandButton value="Adatok kiírása"
+                                      action="#{kontaktok.setKerKontakt(kivKont)}"/>
+
+                </h:column>
+                
+                
+
+            </h:dataTable>
+
+
+            <br/>
+            Kiválasztott
+            <br/>
+
+            Név: <h:outputText value="#{kontaktok.kerKontakt.name}"/>  <br/>
+            Email: <h:outputText value="#{kontaktok.kerKontakt.email}"/>  <br/>
+            Születés dátum <h:outputText value="#{kontaktok.kerKontakt.birthdate}">
+                <f:convertDateTime pattern="yyyy.MM.dd."/>
+            </h:outputText>  <br/>
+            Telefonszámai: <br/>
+
+            <h:dataTable value="#{kontaktok.telolista}" var="kivTel">
+
+                <h:column>
+                    <f:facet name="header">
+                        Telefonszám
+                    </f:facet>
+                    <h:outputText value="#{kivTel.number}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Típus
+                    </f:facet>
+                    <h:outputText value="#{kivTel.type}"/>
+
+                </h:column>
+
+                <h:column>
+                    <h:commandButton value="Töröl" action="#{kontaktok.teloSzamTorol(kivTel)}"/>
+                </h:column>
+
+            </h:dataTable>
+
+            <br/>
+
+            Szám: <h:inputText value="#{kontaktok.teloszam}"/> 
+            Típus: <h:inputText value="#{kontaktok.teloTipus}"/>
+            <h:commandButton value="Új telefonszám" action="#{kontaktok.ujSzam()}"/>
+
+
+        </h:form>      
+    </h:body>
+</html>
+
